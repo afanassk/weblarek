@@ -1,37 +1,38 @@
 import { IBuyer } from '../../types';
 
+type TBuyerErrors = Partial<Record<keyof IBuyer, string>>;
 export class Buyer {
-  private _data: Partial<IBuyer> = {};
+  private data: Partial<IBuyer> = {};
 
   // Сохранить данные покупателя
   setData(data: Partial<IBuyer>): void {
-    this._data = { ...this._data, ...data };
+    this.data = { ...this.data, ...data };
   }
 
   // Получить все данные
   getData(): Partial<IBuyer> {
-    return this._data;
+    return this.data;
   }
 
   // Очистить данные
   clear(): void {
-    this._data = {};
+    this.data = {};
   }
 
   // Валидация данных
-  validate(): Record<string, string> {
-    const errors: Record<string, string> = {};
+  validate(): TBuyerErrors {
+    const errors: TBuyerErrors = {};
 
-    if (!this._data.payment) {
+    if (!this.data.payment) {
       errors.payment = 'Не выбран способ оплаты';
     }
-    if (!this._data.address) {
+    if (!this.data.address) {
       errors.address = 'Укажите адрес доставки';
     }
-    if (!this._data.email) {
+    if (!this.data.email) {
       errors.email = 'Укажите email';
     }
-    if (!this._data.phone) {
+    if (!this.data.phone) {
       errors.phone = 'Укажите телефон';
     }
 

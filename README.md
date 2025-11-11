@@ -217,8 +217,8 @@ interface IOrder {
 Конструктор:
 
 ```typescript
-constructor(baseApi: Api) { 
-  this.baseApi = baseApi; 
+constructor(api: IApi) {
+  this.api = api;
 }
 ```
 
@@ -230,6 +230,4 @@ constructor(baseApi: Api) {
 
 `getProductList(): Promise<IProduct[]>` - выполняет GET-запрос для получения списка товаров с сервера.
 
-`createOrder(order: IOrder): Promise<{ id: string }>` - выполняет POST-запрос для отправки информации о заказе (покупатель и выбранные товары).
-
-`get baseUrl(): string` - геттер, возвращающий базовый URL, используемый при обращении к API.
+`createOrder(order: IOrder): Promise<IOrder>` - выполняет POST-запрос для отправки информации о заказе (покупатель и выбранные товары).

@@ -26,12 +26,7 @@ export type TPayment = 'card' | 'cash';
 }
 
 // Интерфейс заказа
-// Минимальная структура заказа для отправки на сервер
-export interface IOrder {
-  payment: TPayment;       
-  email: string;
-  phone: string;
-  address: string;
-  total: number;
-  items: string[];         // массив id товаров
-}
+export interface IOrder extends IBuyer{
+  total: number; 
+  items: string[];      // массив id товаров
+} 
