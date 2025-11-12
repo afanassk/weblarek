@@ -230,4 +230,4 @@ constructor(api: IApi) {
 
 `getProductList(): Promise<IProduct[]>` - выполняет GET-запрос для получения списка товаров с сервера.
 
-`createOrder(order: IOrder): Promise<IOrder>` - выполняет POST-запрос для отправки информации о заказе (покупатель и выбранные товары).
+`createOrder(order: IOrder): Promise<IOrderResponse>` - выполняет POST-запрос для отправки данных заказа на сервер.

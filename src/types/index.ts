@@ -15,10 +15,10 @@ export interface IProduct {
   price: number | null;       // null => товар недоступен к покупке
 }
 
-// Интерфейс покупателя
 export type TPayment = 'card' | 'cash';
 
- export interface IBuyer {
+// Интерфейс покупателя
+export interface IBuyer {
   payment: TPayment;
   email: string;
   phone: string;
@@ -30,3 +30,9 @@ export interface IOrder extends IBuyer{
   total: number; 
   items: string[];      // массив id товаров
 } 
+
+// Тип ответа сервера при создании заказа
+export interface IOrderResponse {
+  id: string;
+  total: number;
+}

@@ -1,4 +1,4 @@
-import { IApi, IProduct, IOrder } from '../types';
+import { IApi, IProduct, IOrder, IOrderResponse } from '../types';
 
 export class AppApi {
   private api: IApi;
@@ -19,9 +19,10 @@ export class AppApi {
   }
 
   // Отправляем заказ
-  async createOrder(order: IOrder): Promise<IOrder> {
+  async createOrder(order: IOrder): Promise<IOrderResponse> {
     try {
-      return await this.api.post<IOrder>('/order', order);
+      const response = await this.api.post<IOrderResponse>('/order', order);
+      return response;
     } catch (error) {
       console.error('Ошибка при создании заказа:', error);
       throw error;
