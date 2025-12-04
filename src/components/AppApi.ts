@@ -1,31 +1,16 @@
-import { IApi, IProduct, IOrder, IOrderResponse } from '../types';
+import { IProductsResult, IOrderRequest, IOrderResponse } from "../types";
+import { Api } from "./base/Api";
 
-export class AppApi {
-  private api: IApi;
-
-  constructor(api: IApi) {
-    this.api = api;
+export class AppApi extends Api{
+  constructor(baseUrl: string, options: RequestInit = {}) {
+    super(baseUrl, options);
   }
 
-  // Получаем список товаров
-  async getProductList(): Promise<IProduct[]> {
-    try {
-      const response = await this.api.get<{ items: IProduct[] }>('/product');
-      return response.items;
-    } catch (error) {
-      console.error('Ошибка при получении списка товаров:', error);
-      throw error;
-    }
+  getCatalog(): Promise<IProductsResult> {
+    return this.get('/product/');
   }
 
-  // Отправляем заказ
-  async createOrder(order: IOrder): Promise<IOrderResponse> {
-    try {
-      const response = await this.api.post<IOrderResponse>('/order', order);
-      return response;
-    } catch (error) {
-      console.error('Ошибка при создании заказа:', error);
-      throw error;
-    }
+  createOrder(order: IOrderRequest): Promise<IOrderResponse>{
+    return this.post('/order', order).then((data => data as IOrderResponse));
   }
 }

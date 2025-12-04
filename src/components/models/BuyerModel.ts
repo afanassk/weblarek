@@ -1,46 +1,49 @@
 import { IBuyer } from '../../types';
 
-type TBuyerErrors = Partial<Record<keyof IBuyer, string>>;
 export class Buyer {
-  private data: Partial<IBuyer> = {};
+  buyerData: IBuyer | null = null;
 
-  // Сохранить данные покупателя
-  setData(data: Partial<IBuyer>): void {
-    this.data = { ...this.data, ...data };
+  setBuyerData(detail: Partial<IBuyer>): void {
+    if (!this.buyerData) {
+      this.buyerData = {
+        payment: 'card',
+        email: '',
+        phone: '',
+        address: ''
+      };
+    }
+    Object.assign(this.buyerData, detail);
   }
 
-  // Получить все данные
-  getData(): Partial<IBuyer> {
-    return this.data;
+  getBuyerData(): IBuyer | null {
+    return this.buyerData;
   }
 
-  // Очистить данные
-  clear(): void {
-    this.data = {};
+  clearBuyerData(): void {
+    this.buyerData = null;
   }
 
-  // Валидация данных
-  validate(): TBuyerErrors {
-    const errors: TBuyerErrors = {};
+  sumAddressErrors(): {[key: string]: string} {
+    const error: {[key: string]: string} = {};
 
-    if (!this.data.payment) {
-      errors.payment = 'Не выбран способ оплаты';
+    if (!this.buyerData?.address || this.buyerData?.address.trim() === '') {
+      error.address = 'Необходимо указать адрес';
     }
-    if (!this.data.address) {
-      errors.address = 'Укажите адрес доставки';
-    }
-    if (!this.data.email) {
-      errors.email = 'Укажите email';
-    }
-    if (!this.data.phone) {
-      errors.phone = 'Укажите телефон';
-    }
-
-    return errors;
+        
+    return error;
   }
 
-  // Проверить, валидны ли данные
-  isValid(): boolean {
-    return Object.keys(this.validate()).length === 0;
+  sumContactsErrors(): {[key: string]: string} {
+    const error: {[key: string]: string} = {};
+
+    if (!this.buyerData?.email || !this.buyerData?.email.includes('@')) {
+      error.email = 'Введите корректный email';
+    }
+          
+    if (!this.buyerData?.phone || this.buyerData?.phone.trim() === '') {
+      error.phone = 'Введите телефон';
+    }
+
+    return error;
   }
 }

@@ -1,31 +1,30 @@
 import { IProduct } from '../../types';
+import { IEvents } from "../base/Events";
 
 export class Products {
-  private _items: IProduct[] = [];
-  private _selectedProduct: IProduct | null = null;
+  productsList: IProduct[] = [];
+  selectedProduct: IProduct | null = null;
+  
+  constructor(protected events: IEvents) {}
 
-  // Сохранить массив товаров
-  setItems(items: IProduct[]): void {
-    this._items = items;
+  setProducts(products: IProduct[]): void {
+    this.productsList = products;
+    this.events.emit('catalog:changed');
+  };
+
+  getProducts(): IProduct[] {
+    return this.productsList;
+  };
+
+  getProductById(id: string): IProduct | undefined {
+    return this.productsList.find(product => product.id === id);
+  }
+  
+  setSelectedProduct(id: string): void {
+    this.selectedProduct = this.productsList.filter(product => product.id === id)[0];
   }
 
-  // Получить все товары
-  getItems(): IProduct[] {  
-    return this._items;
-  }
-
-  // Получить товар по id
-  getItem(id: string): IProduct | undefined {
-    return this._items.find(item => item.id === id);
-  }
-
-  // Сохранить выбранный товар
-  setSelectedProduct(product: IProduct): void {
-    this._selectedProduct = product;
-  }
-
-  // Получить выбранный товар
   getSelectedProduct(): IProduct | null {
-    return this._selectedProduct;
+    return this.selectedProduct;
   }
 }
