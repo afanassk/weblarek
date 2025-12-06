@@ -21,6 +21,8 @@ export class BasketView extends Component<BasketData> {
     this.buttonElement = ensureElement<HTMLButtonElement>('.basket__button', this.container);
     this.priceElement = ensureElement<HTMLElement>('.basket__price', this.container);
 
+    this.basket = [];
+
     this.buttonElement.addEventListener('click', () => {
       this.events?.emit('cart:order');
     });
@@ -46,7 +48,6 @@ export class BasketView extends Component<BasketData> {
       this.buttonText = 'Оформить';
       this.listElement.replaceChildren(emptyCart);
     }
-        
   };
 
   set total(value: number) {
