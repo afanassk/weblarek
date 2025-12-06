@@ -1,7 +1,10 @@
 import { IBuyer } from '../../types';
+import { IEvents } from "../base/Events";
 
 export class Buyer {
   buyerData: IBuyer | null = null;
+
+  constructor(protected events: IEvents) {}
 
   setBuyerData(detail: Partial<IBuyer>): void {
     if (!this.buyerData) {
@@ -13,6 +16,7 @@ export class Buyer {
       };
     }
     Object.assign(this.buyerData, detail);
+    this.events.emit('buyer:changed');
   }
 
   getBuyerData(): IBuyer | null {
@@ -21,6 +25,7 @@ export class Buyer {
 
   clearBuyerData(): void {
     this.buyerData = null;
+    this.events.emit('buyer:changed');
   }
 
   sumAddressErrors(): {[key: string]: string} {

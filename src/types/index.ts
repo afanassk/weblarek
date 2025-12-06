@@ -47,24 +47,7 @@ export interface IOrderRequest extends IBuyer{
   items: string[];
 }
 
-export interface IBasketRemoveActions {
-  onRemove?: (event: MouseEvent) => void;
-}
-
-export interface IFormActions {
-  onSubmit?: (event: SubmitEvent) => void;
-}
-
-export interface IContactsActions {
-  onEmailInput?: (email: string) => void;
-  onPhoneInput?: (phone: string) => void;
-}
-
-export interface IOrderActions {
-  onPaymentSelect?: (payment: TPayment) => void;
-  onAddressInput?: (address: string) => void;
-};
-
 export interface ISuccessActions {
   onOrdered?: () => void; 
 }
+  

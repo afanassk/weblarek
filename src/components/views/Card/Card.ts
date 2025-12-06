@@ -2,9 +2,6 @@ import { IProduct } from "../../../types";
 import { Component } from "../../base/Component";
 import { ensureElement } from "../../../utils/utils";
 
-// Базовый интерфейс данных для карточек
-// Наследуется от IProduct, но все поля делаем опциональными (Partial)
-// плюс добавляем опциональный index для нумерации в корзине.
 export interface ICard extends Partial<IProduct> {
   index?: number;
 };
@@ -16,8 +13,7 @@ export abstract class Card<T extends ICard> extends Component <T> {
 
   constructor(container: HTMLElement) {
     super(container);
-
-    // Находим и сохраняем элементы разметки, за которые отвечает базовая карточка
+    
     this.titleElement = ensureElement<HTMLElement>('.card__title', this.container);
     this.priceElement = ensureElement<HTMLElement>('.card__price', this.container);
   };

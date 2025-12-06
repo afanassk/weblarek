@@ -21,7 +21,9 @@ export class Products {
   }
   
   setSelectedProduct(id: string): void {
-    this.selectedProduct = this.productsList.filter(product => product.id === id)[0];
+    const product = this.getProductById(id);
+    this.selectedProduct = product ?? null;
+    this.events.emit('product:changed', { id });
   }
 
   getSelectedProduct(): IProduct | null {
